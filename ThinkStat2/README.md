@@ -1,1 +1,1 @@
-需要用Python3实现
+需要用Python3实现，python2会报错
