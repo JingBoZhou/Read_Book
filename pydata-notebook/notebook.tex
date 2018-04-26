@@ -1,0 +1,2444 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CHAPTER\_10\_Data\_Aggregation\_and\_Group\_Operations}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{CHAPTER 10 Data Aggregation and Group
+Operations}\label{chapter-10-data-aggregation-and-group-operations}
+
+这一章的内容：
+
+\begin{itemize}
+\item
+  把一个pandas对象（Series或DataFrame）按一个或多个key分解为多份（key可以是函数的形式，或者arrays,
+  DataFrame column names)
+\item
+  计算组的汇总统计值（group summary
+  statistics），比如计数，平均值，标准差，或用户自己定义的函数
+\item
+  应用组内的数据转换或其他一些操作，比如标准化，线性回归，排序，子集选择
+\item
+  计算透视表和交叉列表
+\item
+  进行分位数分析和其他一些统计组分析
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \subsection{10.1 GroupBy Mechanics}\label{groupby-mechanics}
+
+Hadley
+Wickham，是很多有名的R语言包的作者，他描述\texttt{group\ operation}(组操作)为\texttt{split-apply-combine}(分割-应用-结合)。第一个阶段，存储于series或DataFrame中的数据，根据不同的keys会被split（分割）为多个组。而且分割的操作是在一个特定的axis（轴）上。例如，DataFrame能按行（axis=0）或列（axis=1）来分组。之后，我们可以把函数apply（应用）在每一个组上，产生一个新的值。最后，所以函数产生的结果被combine(结合)为一个结果对象（result
+object）。下面是一个图示：
+
+\begin{figure}
+\centering
+\includegraphics{http://oydgk2hgw.bkt.clouddn.com/pydata-book/ikthz.png}
+\caption{}
+\end{figure}
+
+每一个用于分组的key能有很多形式，而且keys也不必都是一种类型：
+
+\begin{itemize}
+\item
+  按axis分组后含有相同长度的list或array
+\item
+  DataFrame中的列名
+\item
+  一个dict或Series，给出一个对应关系，用于对应按轴分组后的值与组的名字
+\item
+  能在axis index（轴索引）或index上的labels（标签）上被调用的函数
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data2}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}       data1     data2 key1 key2
+        0  0.008553 -0.507719    a  one
+        1 -0.319993  1.573776    a  two
+        2 -0.102278  1.706804    b  one
+        3 -0.388653  0.548088    b  two
+        4  0.180972  0.744596    a  one
+\end{Verbatim}
+            
+    假设我们想要，通过使用key1作为labels，来计算data1列的平均值。有很多方法可以做到这点，一种是访问data1，并且使用列（a
+series）在key1上，调用groupby。(译者：其实就是按key1来进行分组，但只保留data1这一列)：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{grouped} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{grouped}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} <pandas.core.groupby.SeriesGroupBy object at 0x7fc275743908>
+\end{Verbatim}
+            
+    这个grouped变量是一个GroupBy
+object(分组对象)。实际上现在还没有进行任何计算，除了调用group
+key(分组键)df{[}'key1'{]}时产生的一些中间数据。整个方法是这样的，这个GroupBy
+object(分组对象)已经有了我们想要的信息，现在需要的是对于每一个group（组）进行一些操作。例如，通过调用GroupBy的mean方法，我们可以计算每个组的平均值：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{grouped}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} key1
+        a   -0.087028
+        b    0.942529
+        Name: data1, dtype: float64
+\end{Verbatim}
+            
+    之后我们会对于调用.mean()后究竟发生了什么进行更详细的解释。重要的是，我们通过group
+key（分组键）对数据（a
+series）进行了聚合，这产生了一个新的Series，而且这个series的索引是key1列中不同的值。
+
+得到的结果中，index（索引）也有'key1'，因为我们使用了df{[}'key1'{]}。
+
+如果我们传入多个数组作为一个list，那么我们会得到不同的东西：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{means} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+        \PY{n}{means}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} key1  key2
+        a     one    -0.481997
+              two     0.702910
+        b     one     0.186644
+              two     1.698414
+        Name: data1, dtype: float64
+\end{Verbatim}
+            
+    这里我们用了两个key来分组，得到的结果series现在有一个多层级索引，这个多层索引是根据key1和key2不同的值来构建的：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{means}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} key2       one       two
+        key1                    
+        a    -0.481997  0.702910
+        b     0.186644  1.698414
+\end{Verbatim}
+            
+    在上面的例子里，group key全都是series，即DataFrame中的一列，当然，group
+key只要长度正确，可以是任意的数组：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{states} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ohio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{California}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{California}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ohio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ohio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{years} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2005}\PY{p}{,} \PY{l+m+mi}{2005}\PY{p}{,} \PY{l+m+mi}{2006}\PY{p}{,} \PY{l+m+mi}{2005}\PY{p}{,} \PY{l+m+mi}{2006}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n}{states}\PY{p}{,} \PY{n}{years}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} California  2005    0.702910
+                     2006    0.186644
+         Ohio        2005    0.204797
+                     2006    0.324825
+         Name: data1, dtype: float64
+\end{Verbatim}
+            
+    其中分组信息经常就在我们处理的DataFrame中，在这种情况下，我们可以传入列名（可以是字符串，数字，或其他python对象）作为group
+keys：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}          data1     data2
+         key1                    
+         a    -0.087028 -0.000901
+         b     0.942529  0.503650
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}               data1     data2
+        key1 key2                    
+        a    one   0.094763  0.118438
+             two  -0.319993  1.573776
+        b    one  -0.102278  1.706804
+             two  -0.388653  0.548088
+\end{Verbatim}
+            
+    我们注意到第一个例子里，df.groupby('key1').mean()的结果里并没有key2这一列。因为df{[}'key2'{]}这一列不是数值型数据，我们称这种列为\texttt{nuisance\ column}（有碍列），这种列不会出现在结果中。默认，所有的数值型列都会被汇总计算，但是出现有碍列的情况的话，就会过滤掉这种列。
+
+一个很有用的GroupBy方法是size，会返回一个包含group
+size(组大小)的series：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} key2  one  two
+        key1          
+        a       2    1
+        b       1    1
+\end{Verbatim}
+            
+    另外一点需要注意的是，如果作为group
+key的列中有缺失值的话，也不会出现在结果中。
+
+    \subsubsection{1. Iterating Over Groups}\label{iterating-over-groups}
+
+GroupBy对象支持迭代，能产生一个2-tuple（二元元组），包含组名和对应的数据块。考虑下面的情况：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}       data1     data2 key1 key2
+        0  0.008553 -0.507719    a  one
+        1 -0.319993  1.573776    a  two
+        2 -0.102278  1.706804    b  one
+        3 -0.388653  0.548088    b  two
+        4  0.180972  0.744596    a  one
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a
+      data1     data2 key1 key2
+0  0.008553 -0.507719    a  one
+1 -0.319993  1.573776    a  two
+4  0.180972  0.744596    a  one
+b
+      data1     data2 key1 key2
+2 -0.102278  1.706804    b  one
+3 -0.388653  0.548088    b  two
+
+    \end{Verbatim}
+
+    对于有多个key的情况，元组中的第一个元素会被作为另一个元组的key值（译者：可以理解为多个key的所有组合情况）：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{for} \PY{p}{(}\PY{n}{k1}\PY{p}{,} \PY{n}{k2}\PY{p}{)}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{k1}\PY{p}{,} \PY{n}{k2}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+('a', 'one')
+      data1     data2 key1 key2
+0  0.008553 -0.507719    a  one
+4  0.180972  0.744596    a  one
+('a', 'two')
+      data1     data2 key1 key2
+1 -0.319993  1.573776    a  two
+('b', 'one')
+      data1     data2 key1 key2
+2 -0.102278  1.706804    b  one
+('b', 'two')
+      data1     data2 key1 key2
+3 -0.388653  0.548088    b  two
+
+    \end{Verbatim}
+
+    当然，也可以对数据的一部分进行各种操作。一个便利的用法是，用一个含有数据片段（data
+pieces）的dict来作为单行指令(one-liner)：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{pieces} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pieces}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} \{'a':       data1     data2 key1 key2
+          0  0.008553 -0.507719    a  one
+          1 -0.319993  1.573776    a  two
+          4  0.180972  0.744596    a  one, 'b':       data1     data2 key1 key2
+          2 -0.102278  1.706804    b  one
+          3 -0.388653  0.548088    b  two\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{pieces}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}       data1     data2 key1 key2
+         2 -0.102278  1.706804    b  one
+         3 -0.388653  0.548088    b  two
+\end{Verbatim}
+            
+    groupby默认作用于axis=0，但是我们可以指定任意的轴。例如，我们可以按dtyple来对列进行分组：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} data1    float64
+         data2    float64
+         key1      object
+         key2      object
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{grouped} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{dtypes}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{dtype}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{grouped}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{dtype}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+float64
+      data1     data2
+0  0.008553 -0.507719
+1 -0.319993  1.573776
+2 -0.102278  1.706804
+3 -0.388653  0.548088
+4  0.180972  0.744596
+object
+  key1 key2
+0    a  one
+1    a  two
+2    b  one
+3    b  two
+4    a  one
+
+    \end{Verbatim}
+
+    \subsubsection{2. Selecting a Column or Subset of
+Columns}\label{selecting-a-column-or-subset-of-columns}
+
+如果一个GroupBy对象是由DataFrame创建来的，那么通过列名或一个包含列名的数组来对GroupBy对象进行索引的话，就相当于对列取子集做聚合（column
+subsetting for aggregation）。这句话的意思是：
+
+\begin{verbatim}
+df.groupby('key1')['data1'] 
+
+df.groupby('key1')[['data2']]
+\end{verbatim}
+
+上面的代码其实就是下面的语法糖（Syntactic sugar）：
+
+\begin{verbatim}
+df['data1'].groupby(df['key1']) 
+df[['data2']].groupby(df['key1'])
+\end{verbatim}
+
+\texttt{语法糖(Syntactic\ sugar),是由Peter\ J.\ Landin(和图灵一样的天才人物，是他最先发现了Lambda演算，由此而创立了函数式编程)创造的一个词语，它意指那些没有给计算机语言添加新功能，而只是对人类来说更“甜蜜”的语法。语法糖往往给程序员提供了更实用的编码方式，有益于更好的编码风格，更易读。不过其并没有给语言添加什么新东西。}
+
+尤其是对于一些很大的数据集，这种用法可以聚集一部分列。例如，在处理一个数据集的时候，想要只计算data2列的平均值，并将结果返还为一个DataFrame，我们可以这样写：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}       data1     data2 key1 key2
+         0  0.008553 -0.507719    a  one
+         1 -0.319993  1.573776    a  two
+         2 -0.102278  1.706804    b  one
+         3 -0.388653  0.548088    b  two
+         4  0.180972  0.744596    a  one
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}               data2
+         key1 key2          
+         a    one   0.118438
+              two   1.573776
+         b    one   1.706804
+              two   0.548088
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{s\PYZus{}grouped} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{s\PYZus{}grouped}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <pandas.core.groupby.DataFrameGroupBy object at 0x7f10d03926d8>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{s\PYZus{}grouped}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}               data1     data2
+         key1 key2                    
+         a    one   0.094763  0.118438
+              two  -0.319993  1.573776
+         b    one  -0.102278  1.706804
+              two  -0.388653  0.548088
+\end{Verbatim}
+            
+    \subsubsection{3. Grouping with Dicts and
+Series}\label{grouping-with-dicts-and-series}
+
+分组信息可以不是数组的形式。考虑下面的例子：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{people} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} 
+                               \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                               \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Joe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steve}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jim}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Travis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{people}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+         \PY{n}{people}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}                a         b         c         d         e
+         Joe    -0.062008  1.250052 -0.075907 -0.464687 -0.566399
+         Steve  -0.843778  1.538773 -0.351484 -0.065239 -0.021753
+         Wes    -0.912797       NaN       NaN  0.407573  0.404426
+         Jim    -1.319795 -0.960031  0.355724  0.684700 -0.543182
+         Travis  0.310037  1.419185  0.484242  0.548955  1.723964
+\end{Verbatim}
+            
+    假设我们有一个组，对应多个列，而且我们想要按组把这些列的和计算出来：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{mapping} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    现在，我们可以通过这个dict构建一个数组，然后传递给groupby，但其实我们可以直接传入dict（可以注意到key里有一个'f'，这说明即使有，没有被用到的group
+key，也是ok的）：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{by\PYZus{}columns} \PY{o}{=} \PY{n}{people}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{mapping}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{by\PYZus{}columns}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}             blue       red
+         Joe    -0.540595  0.621646
+         Steve  -0.416723  0.673242
+         Wes     0.407573 -0.508371
+         Jim     1.040424 -2.823008
+         Travis  1.033197  3.453186
+\end{Verbatim}
+            
+    这种用法同样适用于series，这种情况可以看作是固定大小的映射（fixed-size
+mapping）:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{map\PYZus{}series} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{mapping}\PY{p}{)}
+         \PY{n}{map\PYZus{}series}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} a       red
+         b       red
+         c      blue
+         d      blue
+         e       red
+         f    orange
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{people}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{map\PYZus{}series}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}         blue  red
+         Joe        2    3
+         Steve      2    3
+         Wes        1    2
+         Jim        2    3
+         Travis     2    3
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{people}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{map\PYZus{}series}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} blue    2
+         red     3
+         dtype: int64
+\end{Verbatim}
+            
+    \subsubsection{4. Grouping with
+Functions}\label{grouping-with-functions}
+
+比起用dict或series定义映射关系，使用python的函数是更通用的方法。任何一个作为group
+key的函数，在每一个index
+value（索引值）上都会被调用一次，函数计算的结果在返回的结果中会被用做group
+name。更具体一点，考虑前一个部分的DataFrame，用人的名字作为索引值。假设我们想要按照名字的长度来分组；同时我们要计算字符串的长度，使用len函数会变得非常简单：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{people}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n+nb}{len}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} len函数在每一个index（即名字）上被调用了}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}           a         b         c         d         e
+         3 -2.294600  0.290022  0.279817  0.627586 -0.705154
+         5 -0.843778  1.538773 -0.351484 -0.065239 -0.021753
+         6  0.310037  1.419185  0.484242  0.548955  1.723964
+\end{Verbatim}
+            
+    混合不同的函数、数组，字典或series都不成问题，因为所有对象都会被转换为数组：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{key\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{people}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{,} \PY{n}{key\PYZus{}list}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}               a         b         c         d         e
+         3 one -0.912797  1.250052 -0.075907 -0.464687 -0.566399
+           two -1.319795 -0.960031  0.355724  0.684700 -0.543182
+         5 one -0.843778  1.538773 -0.351484 -0.065239 -0.021753
+         6 two  0.310037  1.419185  0.484242  0.548955  1.723964
+\end{Verbatim}
+            
+    \subsubsection{5. Grouping by Index
+Levels}\label{grouping-by-index-levels}
+
+最后关于多层级索引数据集(hierarchically indexed
+dataset)，一个很方便的用时是在聚集（aggregate）的时候，使用轴索引的层级（One
+of the levels of an axis index）。看下面的例子：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{columns} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{MultiIndex}\PY{o}{.}\PY{n}{from\PYZus{}arrays}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{US}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{US}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{US}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                              \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} 
+                                             \PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tenor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} MultiIndex(levels=[['JP', 'US'], [1, 3, 5]],
+                    labels=[[1, 1, 1, 0, 0], [0, 1, 2, 0, 1]],
+                    names=['cty', 'tenor'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{hier\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{hier\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} cty          US                            JP          
+         tenor         1         3         5         1         3
+         0      0.469780  0.638290  0.227915  1.002858  2.315825
+         1      0.563677 -0.654445 -3.575667 -0.410529  0.599758
+         2      0.769956  0.177737  0.982014 -0.441651  0.669867
+         3     -0.369750 -0.244317  0.166514 -0.873611 -0.375791
+\end{Verbatim}
+            
+    要想按层级分组，传入层级的数字或者名字，通过使用level关键字：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{hier\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} cty  JP  US
+         0     2   3
+         1     2   3
+         2     2   3
+         3     2   3
+\end{Verbatim}
+            
+    \subsection{10.2 Data Aggregation}\label{data-aggregation}
+
+聚合（Aggregation）指能从数组(array)中产生标量（scalar
+values）的数据转化（data
+transformation）。下面的例子就是一些聚合方法，包括mean, count, min and
+sum。我们可能会好奇，在一个GroupBy对象上调用mean()的时候，究竟发生了什么。一些常见的聚合，比如下表，实现方法上都已经被优化过了。当然，我们可以使用的聚合方法不止这些：
+
+\begin{figure}
+\centering
+\includegraphics{http://oydgk2hgw.bkt.clouddn.com/pydata-book/sugsj.png}
+\caption{}
+\end{figure}
+
+我们可以使用自己设计的聚合方法，而且可以调用分组后对象上的任意方法。例如，我们可以调用quantile来计算Series或DataFrame中列的样本的百分数。
+
+尽管quantile并不是专门为GroupBy对象设计的方法，这是一个Series方法，但仍可以被GroupBy对象使用。GroupBy会对Series进行切片（slice
+up），并对于切片后的每一部分调用piece.quantile(0.9)，然后把每部分的结果整合到一起：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}       data1     data2 key1 key2
+         0  1.202162 -0.179657    a  one
+         1  0.095677 -1.336717    a  two
+         2 -1.229161 -0.298188    b  one
+         3  0.685477  0.043629    b  two
+         4  0.063797 -0.579232    a  one
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{grouped} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{grouped}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{key}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a
+      data1     data2 key1 key2
+0  1.202162 -0.179657    a  one
+1  0.095677 -1.336717    a  two
+4  0.063797 -0.579232    a  one
+b
+      data1     data2 key1 key2
+2 -1.229161 -0.298188    b  one
+3  0.685477  0.043629    b  two
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{确定p分位数的位置}
+         \PY{l+s+sd}{pos = 1+(n\PYZhy{}1)*p}
+         
+         \PY{l+s+sd}{然后再计算相应的值}
+         \PY{l+s+sd}{比如上面a}
+         \PY{l+s+sd}{pos = 1 + (3\PYZhy{}1) * 0.9 = 2.8}
+         \PY{l+s+sd}{result = 0.095677 + (1.202162 \PYZhy{} 0.095677) * 0.8 = 0.980865}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{n}{grouped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} key1
+         a    0.980865
+         b    0.494014
+         Name: data1, dtype: float64
+\end{Verbatim}
+            
+    如果想用自己设计的聚合函数，把用于聚合数组的函数传入到aggregate或agg方法即可：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{peak\PYZus{}to\PYZus{}peak}\PY{p}{(}\PY{n}{arr}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{arr}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{arr}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{grouped}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{n}{peak\PYZus{}to\PYZus{}peak}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}          data1     data2
+         key1                    
+         a     1.138366  1.157060
+         b     1.914638  0.341817
+\end{Verbatim}
+            
+    我们发现很多方法，比如describe，也能正常使用，尽管严格的来说，这并不是聚合：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{grouped}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}                data1     data2
+         key1                          
+         a    count  3.000000  3.000000
+              mean   0.453879 -0.698535
+              std    0.648229  0.587684
+              min    0.063797 -1.336717
+              25\%    0.079737 -0.957975
+              50\%    0.095677 -0.579232
+              75\%    0.648920 -0.379445
+              max    1.202162 -0.179657
+         b    count  2.000000  2.000000
+              mean  -0.271842 -0.127280
+              std    1.353854  0.241701
+              min   -1.229161 -0.298188
+              25\%   -0.750501 -0.212734
+              50\%   -0.271842 -0.127280
+              75\%    0.206818 -0.041826
+              max    0.685477  0.043629
+\end{Verbatim}
+            
+    细节的部分在10.3会进行更多解释。
+
+注意：自定义的函数会比上面表中的函数慢一些，上面的函数时优化过的，而自定义的函数会有一些额外的计算，所以慢一些。
+
+    \subsubsection{1. Column-Wise and Multiple Function
+Application}\label{column-wise-and-multiple-function-application}
+
+让我们回到tipping数据集。加载数据及后，我们添加一列用于描述小费的百分比：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{tips} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./Data/Example/tips.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Add tip percentage of total bill}
+         \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}bill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{tips}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}    total\_bill   tip smoker  day    time  size   tip\_pct
+         0       16.99  1.01     No  Sun  Dinner     2  0.059447
+         1       10.34  1.66     No  Sun  Dinner     3  0.160542
+         2       21.01  3.50     No  Sun  Dinner     3  0.166587
+         3       23.68  3.31     No  Sun  Dinner     2  0.139780
+         4       24.59  3.61     No  Sun  Dinner     4  0.146808
+         5       25.29  4.71     No  Sun  Dinner     4  0.186240
+\end{Verbatim}
+            
+    我们可以看到，对series或DataFrame进行聚合，其实就是通过aggregate使用合适的函数，或者调用一些像mean或std这样的方法。然而，我们可能想要在列上使用不同的函数进行聚合，又或者想要一次执行多个函数。幸运的是，这是可能的，下面将通过一些例子来说明。首先，对于tips数据集，先用day和smoker进行分组：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{grouped} \PY{o}{=} \PY{n}{tips}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{grouped\PYZus{}pct} \PY{o}{=} \PY{n}{grouped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{grouped\PYZus{}pct}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{key}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+('Fri', 'No')
+91     0.155625
+94     0.142857
+99     0.120385
+223    0.187735
+Name: tip\_pct, dtype: float64
+('Fri', 'Yes')
+90     0.103555
+92     0.173913
+93     0.263480
+95     0.117750
+96     0.146628
+97     0.124688
+98     0.142789
+100    0.220264
+101    0.195059
+220    0.180921
+221    0.259314
+222    0.223776
+224    0.117735
+225    0.153657
+226    0.198216
+Name: tip\_pct, dtype: float64
+('Sat', 'No')
+19     0.162228
+20     0.227679
+21     0.135535
+22     0.141408
+23     0.192288
+24     0.160444
+25     0.131387
+26     0.149589
+27     0.157604
+28     0.198157
+29     0.152672
+30     0.151832
+31     0.136240
+32     0.199203
+33     0.118415
+34     0.183915
+35     0.149626
+36     0.122624
+37     0.181335
+38     0.123596
+39     0.159898
+40     0.139651
+57     0.056797
+59     0.139424
+64     0.150085
+65     0.156873
+66     0.150152
+68     0.099357
+70     0.163894
+71     0.175747
+74     0.149355
+75     0.118934
+104    0.195029
+108    0.206140
+110    0.214286
+111    0.137931
+212    0.186220
+227    0.146699
+228    0.204819
+232    0.291990
+233    0.136490
+235    0.124131
+238    0.130338
+239    0.203927
+242    0.098204
+Name: tip\_pct, dtype: float64
+('Sat', 'Yes')
+56     0.078927
+58     0.156584
+60     0.158206
+61     0.144823
+62     0.179673
+63     0.205577
+67     0.325733
+69     0.139241
+72     0.116902
+73     0.197785
+76     0.171875
+102    0.056433
+103    0.155219
+105    0.106771
+106    0.198145
+107    0.170171
+109    0.279525
+168    0.152030
+169    0.188147
+170    0.196812
+171    0.199873
+206    0.128244
+207    0.077459
+208    0.083642
+209    0.174765
+210    0.066534
+211    0.199305
+213    0.188395
+214    0.230742
+215    0.085271
+216    0.106572
+217    0.129422
+218    0.186047
+219    0.102522
+229    0.130199
+230    0.083299
+231    0.191205
+234    0.193175
+236    0.079365
+237    0.035638
+240    0.073584
+241    0.088222
+Name: tip\_pct, dtype: float64
+('Sun', 'No')
+0      0.059447
+1      0.160542
+2      0.166587
+3      0.139780
+4      0.146808
+5      0.186240
+6      0.228050
+7      0.116071
+8      0.130319
+9      0.218539
+10     0.166504
+11     0.141804
+12     0.101816
+13     0.162778
+14     0.203641
+15     0.181650
+16     0.161665
+17     0.227747
+18     0.206246
+41     0.145475
+42     0.219512
+43     0.136364
+44     0.184211
+45     0.164024
+46     0.224921
+47     0.185185
+48     0.071804
+49     0.166297
+50     0.199362
+51     0.252672
+52     0.149382
+53     0.156942
+54     0.169797
+55     0.180092
+112    0.105070
+113    0.106472
+114    0.155581
+115    0.202195
+116    0.169395
+150    0.177683
+151    0.152323
+152    0.158749
+153    0.081466
+154    0.101163
+155    0.172194
+156    0.103799
+157    0.150000
+158    0.194922
+159    0.121286
+160    0.162791
+161    0.197472
+162    0.123381
+163    0.144823
+165    0.141925
+166    0.107900
+167    0.141911
+185    0.241663
+Name: tip\_pct, dtype: float64
+('Sun', 'Yes')
+164    0.171331
+172    0.710345
+173    0.099843
+174    0.237812
+175    0.094529
+176    0.111794
+177    0.138122
+178    0.416667
+179    0.102512
+180    0.106205
+181    0.242177
+182    0.077178
+183    0.280535
+184    0.073983
+186    0.167464
+187    0.065660
+188    0.192837
+189    0.173160
+190    0.095602
+Name: tip\_pct, dtype: float64
+('Thur', 'No')
+77     0.147059
+78     0.131810
+79     0.156738
+81     0.204082
+82     0.181728
+84     0.127034
+85     0.148435
+86     0.153492
+87     0.218818
+88     0.236746
+89     0.141777
+117    0.140845
+118    0.144811
+119    0.121262
+120    0.197605
+121    0.125186
+122    0.175316
+123    0.125392
+124    0.201923
+125    0.140940
+126    0.173709
+127    0.137741
+128    0.175747
+129    0.095530
+130    0.078616
+131    0.139615
+132    0.134288
+133    0.163132
+134    0.177985
+135    0.146886
+136    0.193611
+137    0.141343
+139    0.208967
+140    0.200343
+141    0.195335
+142    0.121389
+143    0.184843
+144    0.139988
+145    0.179641
+146    0.072961
+147    0.137321
+148    0.176892
+149    0.266312
+195    0.190476
+243    0.159744
+Name: tip\_pct, dtype: float64
+('Thur', 'Yes')
+80     0.154321
+83     0.152999
+138    0.125000
+191    0.211509
+192    0.090014
+193    0.130491
+194    0.241255
+196    0.193424
+197    0.115982
+198    0.153846
+199    0.148038
+200    0.213789
+201    0.157771
+202    0.153846
+203    0.152439
+204    0.194837
+205    0.196114
+Name: tip\_pct, dtype: float64
+
+    \end{Verbatim}
+
+    对于像是上面表格10-1中的一些描述性统计，我们可以直接传入函数的名字，即字符串：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{grouped\PYZus{}pct}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} day   smoker
+         Fri   No        0.151650
+               Yes       0.174783
+         Sat   No        0.158048
+               Yes       0.147906
+         Sun   No        0.160113
+               Yes       0.187250
+         Thur  No        0.160298
+               Yes       0.163863
+         Name: tip\_pct, dtype: float64
+\end{Verbatim}
+            
+    如果我们把函数或函数的名字作为一个list传入，我们会得到一个DataFrame，每列的名字就是函数的名字：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} def peak\PYZus{}to\PYZus{}peak(arr):}
+         \PY{c+c1}{\PYZsh{}     return arr.max() \PYZhy{} arr.min()}
+         \PY{n}{grouped\PYZus{}pct}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{peak\PYZus{}to\PYZus{}peak}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}                  mean       std  peak\_to\_peak
+         day  smoker                                  
+         Fri  No      0.151650  0.028123      0.067349
+              Yes     0.174783  0.051293      0.159925
+         Sat  No      0.158048  0.039767      0.235193
+              Yes     0.147906  0.061375      0.290095
+         Sun  No      0.160113  0.042347      0.193226
+              Yes     0.187250  0.154134      0.644685
+         Thur No      0.160298  0.038774      0.193350
+              Yes     0.163863  0.039389      0.151240
+\end{Verbatim}
+            
+    上面我们把多个聚合函数作为一个list传入给agg，这些函数会独立对每一个组进行计算。
+
+上面结果的列名是自动给出的，当然，我们也可以更改这些列名。这种情况下，传入一个由tuple组成的list，每个tuple的格式是(name,
+function)，每个元组的第一个元素会被用于作为DataFrame的列名（我们可以认为这个二元元组list是一个有序的映射）：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{grouped\PYZus{}pct}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{foo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}                   foo       bar
+         day  smoker                    
+         Fri  No      0.151650  0.028123
+              Yes     0.174783  0.051293
+         Sat  No      0.158048  0.039767
+              Yes     0.147906  0.061375
+         Sun  No      0.160113  0.042347
+              Yes     0.187250  0.154134
+         Thur No      0.160298  0.038774
+              Yes     0.163863  0.039389
+\end{Verbatim}
+            
+    如果是处理DataFrame，我们有更多的选择，我们可以用一个含有多个函数的list应用到所有的列上，也可以在不同的列上应用不同的函数。演示一下，假设我们想要在tip\_pct和total\_bill这两列上，计算三个相同的统计指标：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{functions} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{result} \PY{o}{=} \PY{n}{grouped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}bill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{n}{functions}\PY{p}{)}
+         \PY{n}{result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}             tip\_pct                     total\_bill                  
+                       count      mean       max      count       mean    max
+         day  smoker                                                         
+         Fri  No           4  0.151650  0.187735          4  18.420000  22.75
+              Yes         15  0.174783  0.263480         15  16.813333  40.17
+         Sat  No          45  0.158048  0.291990         45  19.661778  48.33
+              Yes         42  0.147906  0.325733         42  21.276667  50.81
+         Sun  No          57  0.160113  0.252672         57  20.506667  48.17
+              Yes         19  0.187250  0.710345         19  24.120000  45.35
+         Thur No          45  0.160298  0.266312         45  17.113111  41.19
+              Yes         17  0.163863  0.241255         17  19.190588  43.11
+\end{Verbatim}
+            
+    我们可以看到，结果中的DataFrame有多层级的列（hierarchical
+columns）。另外一种做法有相同的效果，即我们对于每一列单独进行聚合（aggregating
+each column
+separately），然后使用concat把结果都结合在一起，然后用列名作为keys参数：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}              count      mean       max
+         day  smoker                           
+         Fri  No          4  0.151650  0.187735
+              Yes        15  0.174783  0.263480
+         Sat  No         45  0.158048  0.291990
+              Yes        42  0.147906  0.325733
+         Sun  No         57  0.160113  0.252672
+              Yes        19  0.187250  0.710345
+         Thur No         45  0.160298  0.266312
+              Yes        17  0.163863  0.241255
+\end{Verbatim}
+            
+    我们之前提到过，可以用元组组成的list来自己定义列名：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{ftuples} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Durchschnitt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Abweichung}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{)}\PY{p}{]}
+         \PY{n}{grouped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}bill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{n}{ftuples}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}                  tip\_pct              total\_bill            
+                     Durchschnitt Abweichung Durchschnitt  Abweichung
+         day  smoker                                                 
+         Fri  No         0.151650   0.000791    18.420000   25.596333
+              Yes        0.174783   0.002631    16.813333   82.562438
+         Sat  No         0.158048   0.001581    19.661778   79.908965
+              Yes        0.147906   0.003767    21.276667  101.387535
+         Sun  No         0.160113   0.001793    20.506667   66.099980
+              Yes        0.187250   0.023757    24.120000  109.046044
+         Thur No         0.160298   0.001503    17.113111   59.625081
+              Yes        0.163863   0.001551    19.190588   69.808518
+\end{Verbatim}
+            
+    现在，假设我们想要把不同的函数用到一列或多列上。要做到这一点，给agg传递一个dict，这个dict需要包含映射关系，用来表示列名和函数之间的对应关系：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{grouped}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}                tip  size
+         day  smoker             
+         Fri  No       3.50     9
+              Yes      4.73    31
+         Sat  No       9.00   115
+              Yes     10.00   104
+         Sun  No       6.00   167
+              Yes      6.50    49
+         Thur No       6.70   112
+              Yes      5.00    40
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{grouped}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}               tip\_pct                               size
+                           min       max      mean       std  sum
+         day  smoker                                             
+         Fri  No      0.120385  0.187735  0.151650  0.028123    9
+              Yes     0.103555  0.263480  0.174783  0.051293   31
+         Sat  No      0.056797  0.291990  0.158048  0.039767  115
+              Yes     0.035638  0.325733  0.147906  0.061375  104
+         Sun  No      0.059447  0.252672  0.160113  0.042347  167
+              Yes     0.065660  0.710345  0.187250  0.154134   49
+         Thur No      0.072961  0.266312  0.160298  0.038774  112
+              Yes     0.090014  0.241255  0.163863  0.039389   40
+\end{Verbatim}
+            
+    只有当多个函数用于至少一列的时候，DataFrame才会有多层级列（hierarchical
+columns）
+
+    \subsubsection{2. Returning Aggregated Data Without Row
+Indexes}\label{returning-aggregated-data-without-row-indexes}
+
+目前为止提到的所有例子，最后返回的聚合数据都是有索引的，而且这个索引默认是多层级索引，这个索引是由不同的组键的组合构成的（unique
+group key
+combinations）。因为我们并不是总需要返回这种索引，所以我们可以取消这种模式，在调用groupby的时候设定as\_index=False即可：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}     day smoker  total\_bill       tip      size   tip\_pct
+         0   Fri     No   18.420000  2.812500  2.250000  0.151650
+         1   Fri    Yes   16.813333  2.714000  2.066667  0.174783
+         2   Sat     No   19.661778  3.102889  2.555556  0.158048
+         3   Sat    Yes   21.276667  2.875476  2.476190  0.147906
+         4   Sun     No   20.506667  3.167895  2.929825  0.160113
+         5   Sun    Yes   24.120000  3.516842  2.578947  0.187250
+         6  Thur     No   17.113111  2.673778  2.488889  0.160298
+         7  Thur    Yes   19.190588  3.030000  2.352941  0.163863
+\end{Verbatim}
+            
+    \subsection{10.3 Apply：General
+split-apply-combine}\label{applygeneral-split-apply-combine}
+
+\begin{quote}
+general-purpose: 可以理解为通用，泛用。
+\end{quote}
+
+\begin{quote}
+例子：在计算机软件中，通用编程语言(General-purpose programming language
+)指被设计为各种应用领域服务的编程语言。通常通用编程语言不含有为特定应用领域设计的结构。
+\end{quote}
+
+\begin{quote}
+相对而言，特定域编程语言就是为某一个特定的领域或应用软件设计的编程语言。比如说，LaTeX就是专门为排版文献而设计的语言。
+\end{quote}
+
+最通用的GroupBy(分组)方法是apply，这也是本节的主题。如下图所示，apply会把对象分为多个部分，然后将函数应用到每一个部分上，然后把所有的部分都合并起来：
+
+\begin{figure}
+\centering
+\includegraphics{http://oydgk2hgw.bkt.clouddn.com/pydata-book/81f9f.png}
+\caption{}
+\end{figure}
+
+返回之前提到的tipping数据集，假设我们想要根据不同组（group），选择前5个tip\_pct值最大的。首先，写一个函数，函数的功能为在特定的列，选出有最大值的行:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{tips} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./Data/Example/tips.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Add tip percentage of total bill}
+        \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}bill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{tips}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    total\_bill   tip smoker  day    time  size   tip\_pct
+        0       16.99  1.01     No  Sun  Dinner     2  0.059447
+        1       10.34  1.66     No  Sun  Dinner     3  0.160542
+        2       21.01  3.50     No  Sun  Dinner     3  0.166587
+        3       23.68  3.31     No  Sun  Dinner     2  0.139780
+        4       24.59  3.61     No  Sun  Dinner     4  0.146808
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{top}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{column}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{n}{column}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{n}{n}\PY{p}{:}\PY{p}{]}
+        
+        \PY{n}{top}\PY{p}{(}\PY{n}{tips}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}      total\_bill   tip smoker  day    time  size   tip\_pct
+        109       14.31  4.00    Yes  Sat  Dinner     2  0.279525
+        183       23.17  6.50    Yes  Sun  Dinner     4  0.280535
+        232       11.61  3.39     No  Sat  Dinner     2  0.291990
+        67         3.07  1.00    Yes  Sat  Dinner     1  0.325733
+        178        9.60  4.00    Yes  Sun  Dinner     2  0.416667
+        172        7.25  5.15    Yes  Sun  Dinner     2  0.710345
+\end{Verbatim}
+            
+    现在，如果我们按smoker分组，然后用apply来使用这个函数，我们能得到下面的结果：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{top}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}             total\_bill   tip smoker   day    time  size   tip\_pct
+        smoker                                                           
+        No     88        24.71  5.85     No  Thur   Lunch     2  0.236746
+               185       20.69  5.00     No   Sun  Dinner     5  0.241663
+               51        10.29  2.60     No   Sun  Dinner     2  0.252672
+               149        7.51  2.00     No  Thur   Lunch     2  0.266312
+               232       11.61  3.39     No   Sat  Dinner     2  0.291990
+        Yes    109       14.31  4.00    Yes   Sat  Dinner     2  0.279525
+               183       23.17  6.50    Yes   Sun  Dinner     4  0.280535
+               67         3.07  1.00    Yes   Sat  Dinner     1  0.325733
+               178        9.60  4.00    Yes   Sun  Dinner     2  0.416667
+               172        7.25  5.15    Yes   Sun  Dinner     2  0.710345
+\end{Verbatim}
+            
+    我们来解释下上面这一行代码发生了什么。这里的top函数，在每一个DataFrame中的行组（row
+group）都被调用了一次，然后各自的结果通过pandas.concat合并了，最后用组名（group
+names）来标记每一部分。（译者：可以理解为，我们先按smoker这一列对整个DataFrame进行了分组，一共有No和Yes两组，然后对每一组上调用了top函数，所以每一组会返还5行作为结果，最后把两组的结果整合起来，一共是10行）。
+
+最后的结果是有多层级索引（hierarchical
+index）的，而且这个多层级索引的内部层级（inner
+level）含有来自于原来DataFrame中的索引值（index
+values）（译者：即在smoker为No的这一组，No本身是一个索引，它的内层索引是88,
+185, 51, 149, 232这五个行索引，这五个内部层级是来自于原始DataFrame的）。
+
+如果传递一个函数给apply，可以在函数之后，设定其他一些参数：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{top}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{column}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}bill}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                  total\_bill    tip smoker   day    time  size   tip\_pct
+        smoker day                                                             
+        No     Fri  94        22.75   3.25     No   Fri  Dinner     2  0.142857
+               Sat  212       48.33   9.00     No   Sat  Dinner     4  0.186220
+               Sun  156       48.17   5.00     No   Sun  Dinner     6  0.103799
+               Thur 142       41.19   5.00     No  Thur   Lunch     5  0.121389
+        Yes    Fri  95        40.17   4.73    Yes   Fri  Dinner     4  0.117750
+               Sat  170       50.81  10.00    Yes   Sat  Dinner     3  0.196812
+               Sun  182       45.35   3.50    Yes   Sun  Dinner     3  0.077178
+               Thur 197       43.11   5.00    Yes  Thur   Lunch     4  0.115982
+\end{Verbatim}
+            
+    除了上面这些基本用法，要想用好apply可能需要一点创新能力。毕竟传给这个函数的内容取决于我们自己，而最终的结果只需要返回一个pandas对象或一个标量。这一章的剩余部分主要介绍如何解决在使用groupby时遇到的一些问题。
+
+可以试一试在GroupBy对象上调用describe
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{result} \PY{o}{=} \PY{n}{tips}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}         count      mean       std       min       25\%       50\%       75\%  \textbackslash{}
+        smoker                                                                      
+        No      151.0  0.159328  0.039910  0.056797  0.136906  0.155625  0.185014   
+        Yes      93.0  0.163196  0.085119  0.035638  0.106771  0.153846  0.195059   
+        
+                     max  
+        smoker            
+        No      0.291990  
+        Yes     0.710345  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{result}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} smoker          No        Yes
+         count   151.000000  93.000000
+         mean      0.159328   0.163196
+         std       0.039910   0.085119
+         min       0.056797   0.035638
+         25\%       0.136906   0.106771
+         50\%       0.155625   0.153846
+         75\%       0.185014   0.195059
+         max       0.291990   0.710345
+\end{Verbatim}
+            
+    在GroupBy内部，当我们想要调用一个像describe这样的函数的时候，其实相当于下面的写法：
+
+\begin{verbatim}
+f = lambda x: x.describe()
+grouped.apply(f)
+\end{verbatim}
+
+    \subsubsection{1. Suppressing the Group
+Keys}\label{suppressing-the-group-keys}
+
+在接下来的例子，我们会看到作为结果的对象有一个多层级索引（hierarchical
+index），这个多层级索引是由原来的对象中，组键（group
+key）在每一部分的索引上得到的。我们可以在groupby函数中设置group\_keys=False来关闭这个功能：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{group\PYZus{}keys}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{top}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}      total\_bill   tip smoker   day    time  size   tip\_pct
+         88        24.71  5.85     No  Thur   Lunch     2  0.236746
+         185       20.69  5.00     No   Sun  Dinner     5  0.241663
+         51        10.29  2.60     No   Sun  Dinner     2  0.252672
+         149        7.51  2.00     No  Thur   Lunch     2  0.266312
+         232       11.61  3.39     No   Sat  Dinner     2  0.291990
+         109       14.31  4.00    Yes   Sat  Dinner     2  0.279525
+         183       23.17  6.50    Yes   Sun  Dinner     4  0.280535
+         67         3.07  1.00    Yes   Sat  Dinner     1  0.325733
+         178        9.60  4.00    Yes   Sun  Dinner     2  0.416667
+         172        7.25  5.15    Yes   Sun  Dinner     2  0.710345
+\end{Verbatim}
+            
+    \subsubsection{2. Quantile and Bucket
+Analysis}\label{quantile-and-bucket-analysis}
+
+在第八章中，我们介绍了pandas的一些工具，比如cut和qcut，通过设置中位数，切割数据为buckets
+with bins(有很多箱子的桶)。
+
+\begin{quote}
+这里bucket我翻译为桶，可以理解为像group一样的概念，一个组内有不同的bins。而关于bins（箱）的部分，可以回顾看一下7.2
+\end{quote}
+
+把函数通过groupby整合起来，可以在做桶分析或分位数分析的时候更方便。假设一个简单的随机数据集和一个等长的桶类型（bucket
+categorization），使用cut：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{frame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{,}
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{frame}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}       data1     data2
+        0 -1.117411 -1.714515
+        1 -0.544665 -0.203708
+        2  0.800810 -1.256846
+        3 -0.521751  0.109719
+        4 -0.664808 -0.659305
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{quartiles} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{frame}\PY{o}{.}\PY{n}{data1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{quartiles}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 0    (-1.611, -0.121]
+        1    (-1.611, -0.121]
+        2      (-0.121, 1.37]
+        3    (-1.611, -0.121]
+        4    (-1.611, -0.121]
+        5      (-0.121, 1.37]
+        6        (1.37, 2.86]
+        7      (-0.121, 1.37]
+        8      (-0.121, 1.37]
+        9      (-0.121, 1.37]
+        Name: data1, dtype: category
+        Categories (4, interval[float64]): [(-3.107, -1.611] < (-1.611, -0.121] < (-0.121, 1.37] < (1.37, 2.86]]
+\end{Verbatim}
+            
+    cut返回的Categorical
+object（类别对象）能直接传入groupby。所以我们可以在data2列上计算很多统计值：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}stats}\PY{p}{(}\PY{n}{group}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{group}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{group}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{group}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{group}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{grouped} \PY{o}{=} \PY{n}{frame}\PY{o}{.}\PY{n}{data2}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{quartiles}\PY{p}{)}
+        
+        \PY{n}{grouped}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}stats}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                   count       max      mean       min
+        data1                                                
+        (-3.107, -1.611]   50.0  2.335169  0.080644 -2.547794
+        (-1.611, -0.121]  400.0  3.529765 -0.042367 -2.630203
+        (-0.121, 1.37]    449.0  2.822909 -0.031766 -2.756518
+        (1.37, 2.86]      101.0  2.489412  0.006706 -2.550062
+\end{Verbatim}
+            
+    也有相同长度的桶（equal-length
+buckets）；想要按照样本的分位数得到相同长度的桶，用qcut。这里设定labels=False来得到分位数的数量：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Return quantile numbers}
+         \PY{n}{grouping} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{qcut}\PY{p}{(}\PY{n}{frame}\PY{o}{.}\PY{n}{data1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{grouped} \PY{o}{=} \PY{n}{frame}\PY{o}{.}\PY{n}{data2}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{grouping}\PY{p}{)}
+         
+         \PY{n}{result} \PY{o}{=} \PY{n}{grouped}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}stats}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}
+         \PY{n}{result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}        count       max      mean       min
+         data1                                     
+         0      100.0  2.335169  0.053026 -2.547794
+         1      100.0  2.178563 -0.091840 -2.630203
+         2      100.0  3.529765  0.051323 -2.319132
+         3      100.0  1.948993 -0.168303 -2.325652
+         4      100.0  2.450706 -0.011882 -2.378696
+         5      100.0  2.335652 -0.012119 -2.602760
+         6      100.0  2.822909 -0.023510 -2.220064
+         7      100.0  2.384273  0.003391 -2.756518
+         8      100.0  2.206631 -0.080611 -2.281385
+         9      100.0  2.489412  0.015523 -2.550062
+\end{Verbatim}
+            
+    译者：上面的代码是把frame的data1列分为10个bin，每个bin都有相同的数量。因为一共有1000个样本，所以每个bin里有100个样本。grouping保存的是每个样本的index以及其对应的bin的编号。
+
+对于pandas的Categorical类型，会在第十二章做详细介绍。
+
+    \subsubsection{3 Example: Filling Missing Values with Group-Specific
+Values}\label{example-filling-missing-values-with-group-specific-values}
+
+在处理缺失值的时候，一些情况下我们会直接用dropna来把缺失值删除，但另一些情况下，我们希望用一些固定的值来代替缺失值，而fillna就是用来做这个的，例如，这里我们用平均值mean来代替缺失值NA：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{s} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{s}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+         
+         \PY{n}{s}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 0         NaN
+         1    0.158210
+         2         NaN
+         3    0.058141
+         4         NaN
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{s}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{s}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 0    0.108175
+         1    0.158210
+         2    0.108175
+         3    0.058141
+         4    0.108175
+         dtype: float64
+\end{Verbatim}
+            
+    假设我们想要给每一组填充不同的值。一个方法就是对数据分组后，用apply来调用fillna，在每一个组上执行一次。这里有一些样本是把美国各州分为西部和东部：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{states} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ohio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New York}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vermont}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Florida}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oregon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nevada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{California}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idaho}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{group\PYZus{}keys} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{East}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{4} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{West}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{4}
+         \PY{n}{group\PYZus{}keys}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} ['East', 'East', 'East', 'East', 'West', 'West', 'West', 'West']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{states}\PY{p}{)}
+         \PY{n}{data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} Ohio         -0.210587
+         New York      1.283387
+         Vermont      -1.689923
+         Florida      -2.883676
+         Oregon       -0.423789
+         Nevada       -0.787763
+         California   -2.030747
+         Idaho         0.958587
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vermont}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nevada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idaho}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+         \PY{n}{data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} Ohio         -0.210587
+         New York      1.283387
+         Vermont            NaN
+         Florida      -2.883676
+         Oregon       -0.423789
+         Nevada             NaN
+         California   -2.030747
+         Idaho              NaN
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{fill\PYZus{}mean} \PY{o}{=} \PY{k}{lambda} \PY{n}{g}\PY{p}{:}\PY{n}{g}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{group\PYZus{}keys}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{fill\PYZus{}mean}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} Ohio         -0.210587
+         New York      1.283387
+         Vermont      -0.603625
+         Florida      -2.883676
+         Oregon       -0.423789
+         Nevada       -1.227268
+         California   -2.030747
+         Idaho        -1.227268
+         dtype: float64
+\end{Verbatim}
+            
+    在另外一些情况下，我们可能希望提前设定好用于不同组的填充值。因为group有一个name属性，我们可以利用这个：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{fill\PYZus{}values} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{East}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{West}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.1}\PY{p}{\PYZcb{}}
+         \PY{n}{fill\PYZus{}func} \PY{o}{=} \PY{k}{lambda} \PY{n}{g}\PY{p}{:}\PY{n}{g}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{fill\PYZus{}values}\PY{p}{[}\PY{n}{g}\PY{o}{.}\PY{n}{name}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{group\PYZus{}keys}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{fill\PYZus{}func}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} Ohio         -0.210587
+         New York      1.283387
+         Vermont       0.500000
+         Florida      -2.883676
+         Oregon       -0.423789
+         Nevada        0.100000
+         California   -2.030747
+         Idaho         0.100000
+         dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{4 Example: Random Sampling and
+Permutation}\label{example-random-sampling-and-permutation}
+
+假设我们想要从一个很大的数据集里随机抽出一些样本，这里我们可以在Series上用sample方法。为了演示，这里创建一副模拟的扑克牌：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Hearts红桃，Spades黑桃，Clubs梅花，Diamonds方片}
+         \PY{n}{suits} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{card\PYZus{}val} \PY{o}{=} \PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{3}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{4}
+         \PY{n}{base\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{J}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{cards} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{suit} \PY{o+ow}{in} \PY{n}{suits}\PY{p}{:}
+             \PY{n}{cards}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{num}\PY{p}{)} \PY{o}{+} \PY{n}{suit} \PY{k}{for} \PY{n}{num} \PY{o+ow}{in} \PY{n}{base\PYZus{}names}\PY{p}{)}
+         
+         \PY{n}{deck} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{card\PYZus{}val}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{cards}\PY{p}{)}
+\end{Verbatim}
+
+
+    这样我们就得到了一个长度为52的Series，索引（index）部分是牌的名字，对应的值为牌的点数，这里的点数是按Blackjack（二十一点）的游戏规则来设定的。
+
+\begin{quote}
+Blackjack（二十一点）: 2点至10点的牌以牌面的点数计算，J、Q、K
+每张为10点，A可记为1点或为11点。这里为了方便，我们只把A记为1点。
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{deck}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{13}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} AH      1
+         2H      2
+         3H      3
+         4H      4
+         5H      5
+         6H      6
+         7H      7
+         8H      8
+         9H      9
+         10H    10
+         JH     10
+         KH     10
+         QH     10
+         dtype: int64
+\end{Verbatim}
+            
+    现在，就像我们上面说的，随机从牌组中抽出5张牌：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k}{def} \PY{n+nf}{draw}\PY{p}{(}\PY{n}{deck}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{deck}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+         
+         \PY{n}{draw}\PY{p}{(}\PY{n}{deck}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 8C    8
+         2H    2
+         6C    6
+         AD    1
+         2D    2
+         dtype: int64
+\end{Verbatim}
+            
+    假设我们想要从每副花色中随机抽取两张，花色是每张牌名字的最后一个字符（即H,
+S, C, D），我们可以根据花色分组，然后使用apply：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} last letter is suit}
+         \PY{n}{get\PYZus{}suit} \PY{o}{=} \PY{k}{lambda} \PY{n}{card}\PY{p}{:} \PY{n}{card}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{deck}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{get\PYZus{}suit}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{draw}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} C  AC     1
+            7C     7
+         D  QD    10
+            2D     2
+         H  3H     3
+            6H     6
+         S  QS    10
+            9S     9
+         dtype: int64
+\end{Verbatim}
+            
+    另外一种写法：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{deck}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{get\PYZus{}suit}\PY{p}{,} \PY{n}{group\PYZus{}keys}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{draw}\PY{p}{,} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} JC    10
+         AC     1
+         QD    10
+         5D     5
+         3H     3
+         AH     1
+         6S     6
+         7S     7
+         dtype: int64
+\end{Verbatim}
+            
+    \subsubsection{5 Example: Group Weighted Average and
+Correlation}\label{example-group-weighted-average-and-correlation}
+
+在groupby的split-apply-combine机制下，DataFrame的两列或两个Series，计算组加权平均（Group
+Weighted
+Average）是可能的。这里举个例子，下面的数据集包含组键，值，以及权重：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}   category      data   weights
+        0        a  1.582062  0.111111
+        1        a -0.354054  0.244409
+        2        a  2.887652  0.959308
+        3        a -0.234869  0.084489
+        4        b  0.250839  0.284906
+        5        b -0.339405  0.432754
+        6        b  0.634681  0.455488
+        7        b  1.386976  0.559162
+\end{Verbatim}
+            
+    按category分组来计算组加权平均：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{grouped} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{get\PYZus{}wavg} \PY{o}{=} \PY{k}{lambda} \PY{n}{g}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{average}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n}{g}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{grouped}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}wavg}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} category
+        a    2.029243
+        b    0.571041
+        dtype: float64
+\end{Verbatim}
+            
+    另一个例子，考虑一个从Yahoo！财经上得到的经济数据集，包含一些股票交易日结束时的股价，以及S\&P
+500指数(即SPX符号)：
+
+\begin{quote}
+标准普尔500指数英文简写为S\&P 500
+Index，是记录美国500家上市公司的一个股票指数。这个股票指数由标准普尔公司创建并维护。
+\end{quote}
+
+\begin{quote}
+标准普尔500指数覆盖的所有公司，都是在美国主要交易所，如纽约证券交易所、Nasdaq交易的上市公司。与道琼斯指数相比，标准普尔500指数包含的公司更多，因此风险更为分散，能够反映更广泛的市场变化。
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{close\PYZus{}px} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./Data/Example/stock\PYZus{}px\PYZus{}2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{close\PYZus{}px}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 2214 entries, 2003-01-02 to 2011-10-14
+Data columns (total 4 columns):
+AAPL    2214 non-null float64
+MSFT    2214 non-null float64
+XOM     2214 non-null float64
+SPX     2214 non-null float64
+dtypes: float64(4)
+memory usage: 86.5 KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{close\PYZus{}px}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}               AAPL   MSFT    XOM      SPX
+        2011-10-11  400.29  27.00  76.27  1195.54
+        2011-10-12  402.19  26.96  77.16  1207.25
+        2011-10-13  408.43  27.18  76.37  1203.66
+        2011-10-14  422.00  27.27  78.11  1224.58
+\end{Verbatim}
+            
+    一个比较有意思的尝试是计算一个DataFrame，包括与SPX这一列逐年日收益的相关性（计算百分比变化）。一个可能的方法是，我们先创建一个能计算不同列相关性的函数，然后拿每一列与SPX这一列求相关性：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{spx\PYZus{}corr} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{corrwith}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    然后我们通过pct\_change在close\_px上计算百分比的变化:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{rets} \PY{o}{=} \PY{n}{close\PYZus{}px}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    最后，我们按年来给这些百分比变化分组，年份可以从每行的标签中通过一个一行函数提取，然后返回的结果中，用datetime标签来表示年份：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{get\PYZus{}year} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{year}
+         \PY{n}{by\PYZus{}year} \PY{o}{=} \PY{n}{rets}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{get\PYZus{}year}\PY{p}{)}
+         \PY{n}{by\PYZus{}year}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{spx\PYZus{}corr}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}           AAPL      MSFT       XOM  SPX
+         2003  0.541124  0.745174  0.661265  1.0
+         2004  0.374283  0.588531  0.557742  1.0
+         2005  0.467540  0.562374  0.631010  1.0
+         2006  0.428267  0.406126  0.518514  1.0
+         2007  0.508118  0.658770  0.786264  1.0
+         2008  0.681434  0.804626  0.828303  1.0
+         2009  0.707103  0.654902  0.797921  1.0
+         2010  0.710105  0.730118  0.839057  1.0
+         2011  0.691931  0.800996  0.859975  1.0
+\end{Verbatim}
+            
+    我们也可以计算列内的相关性。这里我们计算苹果和微软每年的相关性：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{by\PYZus{}year}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{g}\PY{p}{:}\PY{n}{g}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AAPL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSFT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} 2003    0.480868
+         2004    0.259024
+         2005    0.300093
+         2006    0.161735
+         2007    0.417738
+         2008    0.611901
+         2009    0.432738
+         2010    0.571946
+         2011    0.581987
+         dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{6 Example: Group-Wise Linear
+Regression}\label{example-group-wise-linear-regression}
+
+就像上面介绍的例子，使用groupby可以用于更复杂的组对组统计分析，只要函数能返回一个pandas对象或标量。例如，我们可以定义regress函数（利用statsmodels库），在每一个数据块（each
+chunk of data）上进行普通最小平方回归（ordinary least squares (OLS)
+regression）计算：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         
+         \PY{k}{def} \PY{n+nf}{regress}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{yvar}\PY{p}{,} \PY{n}{xvars}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{yvar}\PY{p}{]}
+             \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{xvars}\PY{p}{]}
+             \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intercept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{result} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{result}\PY{o}{.}\PY{n}{params}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{by\PYZus{}year}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{regress}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AAPL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}            SPX  intercept
+         2003  1.195406   0.000710
+         2004  1.363463   0.004201
+         2005  1.766415   0.003246
+         2006  1.645496   0.000080
+         2007  1.198761   0.003438
+         2008  0.968016  -0.001110
+         2009  0.879103   0.002954
+         2010  1.052608   0.001261
+         2011  0.806605   0.001514
+\end{Verbatim}
+            
+    \subsection{10.4 Pivot Tables and
+Cross-Tabulation}\label{pivot-tables-and-cross-tabulation}
+
+Pivot
+Tables（数据透视表）是一种常见的数据汇总工具，常见与各种spreadsheet
+programs（电子表格程序，比如Excel）和一些数据分析软件。它能按一个或多个keys来把数据聚合为表格，能沿着行或列，根据组键来整理数据。
+
+数据透视表可以用pandas的groupby来制作，这个本节会进行介绍，除此之外还会有介绍如何利用多层级索引来进行reshape（更改形状）操作。DataFrame有一个pivot\_table方法，另外还有一个pandas.pivot\_table函数。为了有一个更方便的groupby接口，pivot\_table能添加partial
+totals（部分合计）,也被称作margins(边界)。
+
+回到之前提到的tipping数据集，假设我们想要计算一个含有组平均值的表格(a
+table of group
+means，这个平均值也是pivot\_table默认的聚合类型)，按day和smoker来分组：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{tips} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./Data/Example/tips.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Add tip percentage of total bill}
+         \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{tips}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}bill}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{tips}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}    total\_bill   tip smoker  day    time  size   tip\_pct
+         0       16.99  1.01     No  Sun  Dinner     2  0.059447
+         1       10.34  1.66     No  Sun  Dinner     3  0.160542
+         2       21.01  3.50     No  Sun  Dinner     3  0.166587
+         3       23.68  3.31     No  Sun  Dinner     2  0.139780
+         4       24.59  3.61     No  Sun  Dinner     4  0.146808
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}                  size       tip   tip\_pct  total\_bill
+         day  smoker                                          
+         Fri  No      2.250000  2.812500  0.151650   18.420000
+              Yes     2.066667  2.714000  0.174783   16.813333
+         Sat  No      2.555556  3.102889  0.158048   19.661778
+              Yes     2.476190  2.875476  0.147906   21.276667
+         Sun  No      2.929825  3.167895  0.160113   20.506667
+              Yes     2.578947  3.516842  0.187250   24.120000
+         Thur No      2.488889  2.673778  0.160298   17.113111
+              Yes     2.352941  3.030000  0.163863   19.190588
+\end{Verbatim}
+            
+    这个结果也可以通过groupby直接得到。
+
+现在假设我们想要按time分组，然后对tip\_pct和size进行聚合。我们会把smoker放在列上，而day用于行：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}                  size             tip\_pct          
+         smoker             No       Yes        No       Yes
+         time   day                                         
+         Dinner Fri   2.000000  2.222222  0.139622  0.165347
+                Sat   2.555556  2.476190  0.158048  0.147906
+                Sun   2.929825  2.578947  0.160113  0.187250
+                Thur  2.000000       NaN  0.159744       NaN
+         Lunch  Fri   3.000000  1.833333  0.187735  0.188937
+                Thur  2.500000  2.352941  0.160311  0.163863
+\end{Verbatim}
+            
+    我们也快成把这个表格加强一下，通过设置margins=True来添加部分合计（partial
+total）。这么做的话有一个效果，会给行和列各添加All标签，这个All表示的是当前组对于整个数据的统计值：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}                  size                       tip\_pct                    
+         smoker             No       Yes       All        No       Yes       All
+         time   day                                                             
+         Dinner Fri   2.000000  2.222222  2.166667  0.139622  0.165347  0.158916
+                Sat   2.555556  2.476190  2.517241  0.158048  0.147906  0.153152
+                Sun   2.929825  2.578947  2.842105  0.160113  0.187250  0.166897
+                Thur  2.000000       NaN  2.000000  0.159744       NaN  0.159744
+         Lunch  Fri   3.000000  1.833333  2.000000  0.187735  0.188937  0.188765
+                Thur  2.500000  2.352941  2.459016  0.160311  0.163863  0.161301
+         All          2.668874  2.408602  2.569672  0.159328  0.163196  0.160803
+\end{Verbatim}
+            
+    这里，对于All列，这一列的值是不考虑吸烟周和非吸烟者的平均值（smoker
+versus
+nonsmoker）。对于All行，这一行的值是不考虑任何组中任意两个组的平均值（any
+of the two levels of grouping）。
+
+想要使用不同的聚合函数，传递给aggfunc即可。例如，count或len可以给我们一个关于组大小（group
+size）的交叉表格：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{n+nb}{len}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} day             Fri   Sat   Sun  Thur    All
+         time   smoker                               
+         Dinner No       3.0  45.0  57.0   1.0  106.0
+                Yes      9.0  42.0  19.0   NaN   70.0
+         Lunch  No       1.0   NaN   NaN  44.0   45.0
+                Yes      6.0   NaN   NaN  17.0   23.0
+         All            19.0  87.0  76.0  62.0  244.0
+\end{Verbatim}
+            
+    如果一些组合是空的（或NA），我们希望直接用fill\_value来填充：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{tips}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tip\PYZus{}pct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                          \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} day                      Fri       Sat       Sun      Thur
+         time   size smoker                                        
+         Dinner 1    No      0.000000  0.137931  0.000000  0.000000
+                     Yes     0.000000  0.325733  0.000000  0.000000
+                2    No      0.139622  0.162705  0.168859  0.159744
+                     Yes     0.171297  0.148668  0.207893  0.000000
+                3    No      0.000000  0.154661  0.152663  0.000000
+                     Yes     0.000000  0.144995  0.152660  0.000000
+                4    No      0.000000  0.150096  0.148143  0.000000
+                     Yes     0.117750  0.124515  0.193370  0.000000
+                5    No      0.000000  0.000000  0.206928  0.000000
+                     Yes     0.000000  0.106572  0.065660  0.000000
+                6    No      0.000000  0.000000  0.103799  0.000000
+         Lunch  1    No      0.000000  0.000000  0.000000  0.181728
+                     Yes     0.223776  0.000000  0.000000  0.000000
+                2    No      0.000000  0.000000  0.000000  0.166005
+                     Yes     0.181969  0.000000  0.000000  0.158843
+                3    No      0.187735  0.000000  0.000000  0.084246
+                     Yes     0.000000  0.000000  0.000000  0.204952
+                4    No      0.000000  0.000000  0.000000  0.138919
+                     Yes     0.000000  0.000000  0.000000  0.155410
+                5    No      0.000000  0.000000  0.000000  0.121389
+                6    No      0.000000  0.000000  0.000000  0.173706
+\end{Verbatim}
+            
+    下面是关于pivot\_table方法的一些选项：
+
+\begin{figure}
+\centering
+\includegraphics{http://oydgk2hgw.bkt.clouddn.com/pydata-book/doyxv.png}
+\caption{}
+\end{figure}
+
+    \subsubsection{Cross-Tabulations:
+Crosstab}\label{cross-tabulations-crosstab}
+
+cross-tabulation（交叉表，简写为crosstab），是数据透视表的一个特殊形式，只计算组频率（group
+frequencies）。这里有个例子：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nationality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Japan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Japan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Japan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Japan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Japan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Handedness}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Left\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Left\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Left\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}      Handedness Nationality  Sample
+         0  Right-handed         USA       1
+         1   Left-handed       Japan       2
+         2  Right-handed         USA       3
+         3  Right-handed       Japan       4
+         4   Left-handed       Japan       5
+         5  Right-handed       Japan       6
+         6  Right-handed         USA       7
+         7   Left-handed         USA       8
+         8  Right-handed       Japan       9
+         9  Right-handed         USA      10
+\end{Verbatim}
+            
+    作为调查分析（survey
+analysis）的一部分，我们想要按国家和惯用手来进行汇总。我们可以使用pivot\_table来做到这点，不过pandas.crosstab函数会更方便一些：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{Nationality}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{Handedness}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} Handedness   Left-handed  Right-handed  All
+         Nationality                                
+         Japan                  2             3    5
+         USA                    1             4    5
+         All                    3             7   10
+\end{Verbatim}
+            
+    crosstab的前两个参数可以是数组或Series或由数组组成的列表（a list of
+array）。对于tips数据，可以这么写：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{p}{[}\PY{n}{tips}\PY{o}{.}\PY{n}{time}\PY{p}{,} \PY{n}{tips}\PY{o}{.}\PY{n}{day}\PY{p}{]}\PY{p}{,} \PY{n}{tips}\PY{o}{.}\PY{n}{smoker}\PY{p}{,} \PY{n}{margins}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} smoker        No  Yes  All
+         time   day                
+         Dinner Fri     3    9   12
+                Sat    45   42   87
+                Sun    57   19   76
+                Thur    1    0    1
+         Lunch  Fri     1    6    7
+                Thur   44   17   61
+         All          151   93  244
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
